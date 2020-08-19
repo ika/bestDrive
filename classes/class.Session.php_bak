@@ -1,0 +1,111 @@
+<?php
+
+class Session {
+
+    private $connection;
+
+    public function __construct() {
+
+        $this->connection = DBConnection::instantiate();
+
+        session_set_save_handler(
+                array($this, 'open'), array($this, 'close'), array($this, 'read'), array($this, 'write'), array($this, 'destroy'), array($this, 'gc')
+        );
+    }
+
+    public function open($savePath, $sessionName) {
+        return ($this->connection) ? true : false;
+    }
+
+    public function close() {
+        unset($this->connection);
+        return true;
+    }
+
+    public function read($id) {
+
+        $row['data'] = '';
+
+        try {
+
+            $sql = "SELECT se_data AS data FROM db_sessions WHERE se_id = :id";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+        } catch (PDOException $e) {
+            error_log('SESSION READ EXCEPTION: ' . $e->getMessage());
+        }
+
+        return $row['data'];
+    }
+
+    public function write($id, $data) {
+
+        $status = false;
+
+        try {
+
+            $sql = "REPLACE INTO db_sessions (se_id, se_data, se_access ) VALUES (:id, :data, :access)";
+
+            $time = time();
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':data', $data);
+            $stmt->bindParam(':access', $time);
+            if ($stmt->execute()) {
+                $status = true;
+            }
+        } catch (PDOException $e) {
+            error_log('SESSION WRITE EXCEPTION: ' . $e->getMessage());
+        }
+        return $status;
+    }
+
+    public function destroy($id) {
+
+        $status = false;
+
+        try {
+
+            $sql = "DELETE FROM db_sessions WHERE se_id = :id";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                $status = true;
+            }
+        } catch (PDOException $e) {
+            error_log('SESSION DESTROY EXCEPTION: ' . $e->getMessage());
+        }
+        return $status;
+    }
+
+    public function gc($lifetime) {
+
+        $status = false;
+
+        try {
+
+            $old = time() - $lifetime;
+
+            $sql = "DELETE * FROM db_sessions WHERE se_access < :old";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':old', $old);
+            if ($stmt->execute()) {
+                $status = true;
+            }
+        } catch (PDOException $e) {
+            error_log('SESSION GC EXCEPTION: ' . $e->getMessage());
+        }
+        return $status;
+    }
+
+
+}
+?>
+
