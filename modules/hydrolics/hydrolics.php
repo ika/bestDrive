@@ -301,8 +301,8 @@ var GRIDS = {
 	columns: [
 	    {field: 'recid', hidden: true},
 	    {field: 'partid', caption: 'ID', size: '3%', sortable: true },
-	    {field: 'partname', caption: 'Part Name', size: '10%', sortable: true},
-	    {field: 'size', caption: 'Part Size', size: '10%', sortable: true},
+	    {field: 'partname', caption: 'Part Name', size: '10%', sortable: true}, 
+            {field: 'size', caption: 'Part Size', size: '10%', sortable: true},
 	    {field: 'descr', caption: 'Description', size: '10%', sortable: true},
 	    {field: 'date', caption: 'Date', size: '3%', sortable: true},
 	    {field: 'cost', caption: 'Cost', size: '3%', sortable: false},
@@ -446,10 +446,10 @@ var FORMS = {
 	name: 'priceAdjustForm',
 	url: './modules.php',
 	fields: [
-	    {name: 'tid', type: 'text', required: false,
+	    {name: 'partid', type: 'text', required: false,
 		html: {caption: 'ID', attr: 'style="width: 40%;" disabled'}
 	    },
-	    {name: 'amount', type: 'money', required: true,
+	    {name: 'cost', type: 'money', required: true,
 		html: {caption: 'Unit Price (EX VAT)', attr: 'style="width: 40%;"'},
 	    }
 	],
@@ -467,14 +467,14 @@ var FORMS = {
 	    }
 	},
 	postData: {
-	    mod: 'spares|padjust'
+	    mod: 'hydrolics|price'
 	}
     },
     stockAdjustForm: {
 	name: 'stockAdjustForm',
 	url: './modules.php',
 	fields: [
-	    {name: 'tid', type: 'text', required: false,
+	    {name: 'partid', type: 'text', required: false,
 		html: {caption: 'ID', attr: 'style="width: 40%;" disabled'}
 	    },
 	    {name: 'onhand', type: 'text', required: true,
@@ -495,7 +495,7 @@ var FORMS = {
 	    }
 	},
 	postData: {
-	    mod: 'spares|sadjust'
+	    mod: 'hydrolics|onhand'
 	}
     },
     importCvsForm: {
@@ -659,8 +659,8 @@ $(function () {
 
     $('').w2form(FORMS.addForm);
     $('').w2form(FORMS.editForm);
-//    $('').w2form(FORMS.priceAdjustForm);
-//    $('').w2form(FORMS.stockAdjustForm);
+    $('').w2form(FORMS.priceAdjustForm);
+    $('').w2form(FORMS.stockAdjustForm);
 //    $('').w2form(FORMS.importCvsForm);
 
 });

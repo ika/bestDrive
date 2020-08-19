@@ -124,7 +124,7 @@ class Hydrolics {
 			$uid = $this->uid;
 
 			$sql = "UPDATE db_hydrolics SET
-				hy_cost = :net,
+				hy_cost = :cost,
 				hy_time = :time,
 				hy_uid = :uid
 				WHERE hy_id = :recid
@@ -133,7 +133,7 @@ class Hydrolics {
 			$stmt = $this->db->prepare($sql);
 
 			$stmt->bindParam(':recid', $data['recid']);
-			$stmt->bindParam(':net', $data['amount']);
+			$stmt->bindParam(':cost', $data['cost']);
 			$stmt->bindParam(':time', $time);
 			$stmt->bindParam(':uid', $uid);
 

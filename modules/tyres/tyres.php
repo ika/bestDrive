@@ -87,7 +87,7 @@ if (!defined('MULTIDB_MODULE') || !USER_AUTHENTICATED) {
 
         <div id="toolbar" ></div>
 
-        <div id="grid" style="width:95%; margin:30px auto; height:500px; overflow: hidden;" ></div>
+        <div id="grid" style="width:100%; margin:10px auto; height:500px; overflow: hidden;" ></div>
 
     </div>
 
