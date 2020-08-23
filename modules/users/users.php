@@ -86,6 +86,9 @@ var MENUS = {
     about: function () {
         w2popup.load({url: './modules.php?mod=about'});
     },
+   // profile: function () {
+   //     w2popup.load({url: './modules.php?mod=profile'});
+   // },
     exit: function () {
         w2confirm('Are you sure you want to exit?', function btn(answer) {
             if (answer == 'Yes') {
@@ -313,6 +316,9 @@ var TOOLS = {
             switch (target) {
                 case 'site':
                     MENUS.about();
+                    break;
+                case 'name':
+                    //MENUS.profile();
                     break;
             }
         }

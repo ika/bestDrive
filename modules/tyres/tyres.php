@@ -115,26 +115,9 @@ var MENUS = {
     print: function (cat) {
             
             switch(cat) {
-            
                 case 'all':
                 window.location = './modules.php?mod=tyres|print_all';
                 break;
-            
-//                case 'additions':
-//                window.location = './modules.php?mod=tyres|print_additions';
-//                break;
-//            
-//                case 'tractor':
-//                window.location = './modules.php?mod=tyres|print_tractor';
-//                break;
-//            
-//                case 'machine':
-//                window.location = './modules.php?mod=tyres|print_mach';
-//                break;
-//            
-//                case 'bmw':
-//                window.location = './modules.php?mod=tyres|print_bmw';
-//                break;
             
             }
         
@@ -145,6 +128,9 @@ var MENUS = {
                 window.location = './modules.php?mod=tyres|export';
             }
         });
+    },
+    profile: function () {
+        w2popup.load({url: './modules.php?mod=profile'});
     },
     exit: function () {
         w2confirm('Are you sure you want to exit?', function btn(answer) {
@@ -173,11 +159,13 @@ var JSC = {
         w2ui['grid'].select(recid);
     },
     disableButtons: function () {
+        w2ui['grid'].toolbar.disable('last_user');
         w2ui['grid'].toolbar.disable('price_adjust');
         w2ui['grid'].toolbar.disable('stock_adjust');
         w2ui['grid'].toolbar.disable('edit');
     },
     enableButtons: function () {
+        w2ui['grid'].toolbar.enable('last_user');
         w2ui['grid'].toolbar.enable('price_adjust');
         w2ui['grid'].toolbar.enable('stock_adjust');
         w2ui['grid'].toolbar.enable('edit');
@@ -296,7 +284,7 @@ var GRIDS = {
                 {type: 'break'},
                 {type: 'button', id: 'placements', caption: 'Placements', disabled: false},
                 {type: 'break'},
-                {type: 'button', id: 'last_user', caption: 'Last User', disabled: false},
+                {type: 'button', id: 'last_user', caption: 'Last User', disabled: true},
                 {type: 'spacer'},
                 {type: 'button', id: 'add', caption: 'Add', disabled: false},
                 {type: 'break'},
@@ -459,7 +447,7 @@ var TOOLS = {
                     //openAboutPopup();
                     break;
                 case 'name':
-                    // openPersonalPopup();
+			MENUS.profile();
                     break;
             }
         }

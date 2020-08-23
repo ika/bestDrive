@@ -187,7 +187,6 @@ var GRIDS = {
         },
         toolbar: {
             items: [
-                {type: 'button', id: 'config', caption: 'Config', disabled: false},
                 {type: 'spacer'},
                 {type: 'button', id: 'add', caption: 'Add', disabled: false},
                 {type: 'break'},
@@ -201,11 +200,6 @@ var GRIDS = {
 
                 switch (target) {
             
-                    case 'config':
-                        JSC.unSelectLine();
-                        openConfigGrid();
-                        break;
-
                     case 'add':
                         JSC.unSelectLine();
                         openAddPopup();
@@ -318,7 +312,7 @@ var FORMS = {
             {name: 'modules', type: 'enum', required: true,
                 options: {
                     openOnFocus: true,
-                    items: [ 'wkspaces', 'users', 'tyres', 'segments', 'placements','config', 'spares', 'hydrolics'],
+                    items: [ 'wkspaces', 'users', 'tyres', 'segments', 'placements', 'spares', 'hydrolics'],
                     onRemove: function (event) {
 
                             var ObjArr = [];
@@ -487,10 +481,6 @@ function openModsPopup() {
     });
 }
             
-function openConfigGrid() {
-    JSC.mods('config');
-}
-
 $(function () {
 
     $('#toolbar').w2toolbar(TOOLS.toolbar);

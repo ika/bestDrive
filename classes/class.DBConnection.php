@@ -4,35 +4,38 @@
 
 class DBConnection {
 
-    protected static $db;
-    private $db_user = 'multiuser';
-    private $db_pass = 'EpYy3ERrrNTJSbz4';
-    private $db_dsn = "mysql:host=localhost;dbname=tireDB";
+	protected static $db;
+	protected static $config;
 
-    public function __construct() {
+	public function __construct() {
 
-        $options = array(
-            PDO::ATTR_PERSISTENT => true,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        );
+		$options = array(
+			PDO::ATTR_PERSISTENT => true,
+			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+		);
 
-        try {
+		try {
 
-            self::$db = new PDO($this->db_dsn, $this->db_user, $this->db_pass); //, $options
-            self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			self::$db = new PDO(self::$config->dbDsn, self::$config->dbUser, self::$config->dbPass); //, $options
+			self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        } catch (PDOException $e) {
-            error_log('DBConnection EXCEPTION: ' . $e->getMessage());
-        }
-    }
+		} catch (PDOException $e) {
+			error_log('DBConnection EXCEPTION: ' . $e->getMessage());
+		}
+	}
 
-    public static function instantiate() {
+	public static function instantiate() {
 
-        if (!self::$db) {
-            new DBConnection();
-        }
+		if (!self::$db) {
 
-        return self::$db;
-    }
+			self::$config = require_once(DOCUMENT_ROOT . '/../config.php');
+
+			new DBConnection();
+		}
+
+		return self::$db;
+	}
 
 }
+
+?>

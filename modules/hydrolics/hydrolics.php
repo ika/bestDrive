@@ -116,6 +116,9 @@ var MENUS = {
 	    }
 	});
     },
+    profile: function () {
+        w2popup.load({url: './modules.php?mod=profile'});
+    },
     exit: function () {
 	w2confirm('Are you sure you want to exit?', function btn(answer) {
 	    if (answer == 'Yes') {
@@ -221,8 +224,8 @@ var GRIDS = {
 	searches: [
 	    {field: 'partid', caption: 'ID', type: 'text'},
 	    {field: 'partname', caption: 'Part Number', type: 'text'},
-	    {field: 'siz3', caption: 'Part Size', type: 'text'},
-	    {field: 'date', caption: 'Suppliers Inv Date', type: 'text'}
+	    {field: 'size', caption: 'Part Size', type: 'text'},
+	    {field: 'desdr', caption: 'Description', type: 'text'}
 	],
 	toolbar: {
 	    items: [
@@ -336,7 +339,7 @@ var TOOLS = {
 		    //openAboutPopup();
 		    break;
 		case 'name':
-		    // openPersonalPopup();
+		    MENUS.profile();
 		    break;
 	    }
 	}

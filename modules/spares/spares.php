@@ -128,6 +128,9 @@ var MENUS = {
             }
         });
     },
+    profile: function () {
+        w2popup.load({url: './modules.php?mod=profile'});
+    },
     exit: function () {
         w2confirm('Are you sure you want to exit?', function btn(answer) {
             if (answer == 'Yes') {
@@ -155,11 +158,13 @@ var JSC = {
         w2ui['grid'].select(recid);
     },
     disableButtons: function () {
+        w2ui['grid'].toolbar.disable('last_user');
         w2ui['grid'].toolbar.disable('price_adjust');
         w2ui['grid'].toolbar.disable('stock_adjust');
         w2ui['grid'].toolbar.disable('edit');
     },
     enableButtons: function () {
+        w2ui['grid'].toolbar.enable('last_user');
         w2ui['grid'].toolbar.enable('price_adjust');
         w2ui['grid'].toolbar.enable('stock_adjust');
         w2ui['grid'].toolbar.enable('edit');
@@ -183,29 +188,6 @@ var JSC = {
             }
         }, 'json');
     },
-//    fileSave: function (data) {
-//
-//        w2ui.importCvsForm.lock('Loading...', true);
-//
-//        var ts = JSC.time();
-//
-//        $.post('./modules.php', {
-//            mod: 'tyres|import',
-//            data: data,
-//            ts: ts
-//        }, function (resp) {
-//            if (resp.status == 'success') {
-//                w2ui.importCvsForm.unlock();
-//                w2popup.close();
-//                JSC.reload();
-//            } else {
-//                w2ui.importCvsForm.unlock();
-//                w2popup.close();
-//                console.log(resp.message);
-//            }
-//        }, 'json');
-//
-//    },
     lastUser: function (data) {
 
         var ts = JSC.time();
@@ -273,7 +255,7 @@ var GRIDS = {
                 {type: 'break'},
 //                {type: 'button', id: 'placements', caption: 'Placements', disabled: false},
 //                {type: 'break'},
-                {type: 'button', id: 'last_user', caption: 'Last User', disabled: false},
+                {type: 'button', id: 'last_user', caption: 'Last User', disabled: true},
                 {type: 'spacer'},
                 {type: 'button', id: 'add', caption: 'Add', disabled: false},
                 {type: 'break'},
@@ -422,7 +404,7 @@ var TOOLS = {
                     //openAboutPopup();
                     break;
                 case 'name':
-                    // openPersonalPopup();
+		     MENUS.profile();
                     break;
             }
         }
