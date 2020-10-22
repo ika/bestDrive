@@ -1,19 +1,19 @@
 <script type="text/javascript">
 
 var JSCP = {
-	suggestProfilePass: function (len) {
-        	var pw = Math.random().toString(36).slice(-len);
-        	var form = w2ui.profileEditForm;
-        	form.record['password']  = pw; 
-		form.refresh();
-	}
+        suggestProfilePass: function (len) {
+        var pw = Math.random().toString(36).slice( - len);
+                var form = w2ui.profileEditForm;
+                form.record['password'] = pw;
+                form.refresh();
+        }
 }
 
 var FORMS = {
-    profileEditForm: {
+        profileEditForm: {
         name: 'profileEditForm',
-        url: './modules.php',
-        formHTML:
+                url: './modules.php',
+                formHTML:
                 '<div id="form" style="width: 760px;">' +
                 '<div class="w2ui-page page-0">' +
                 '    <div style="width: 760px; float: left; margin-right: 0px;">' +
@@ -50,74 +50,71 @@ var FORMS = {
                 '   <button class="btn" name="save">Save</button>' +
                 '</div>' +
                 '</div>',
-        fields: [
-            {name: 'firstname', type: 'text', required: true},
-            {name: 'lastname', type: 'text', required: true},
-            {name: 'email', type: 'email', required: true},
-            {name: 'telephone', type: 'text', required: false},
-            {name: 'password', type: 'text', required: true},
-            {name: 'notes', type: 'textarea', required: false}
-        ],
-        record: {
-            firstname: '',
-            lastname: '',
-            email: '',
-            telephone: '',
-            password: '',
-            notes: ''
-        },
-        actions: {
-            save: function () {
+                fields: [
+                {name: 'firstname', type: 'text', required: true},
+                {name: 'lastname', type: 'text', required: true},
+                {name: 'email', type: 'email', required: true},
+                {name: 'telephone', type: 'text', required: false},
+                {name: 'password', type: 'text', required: true},
+                {name: 'notes', type: 'textarea', required: false}
+                ],
+                record: {
+                firstname: '',
+                        lastname: '',
+                        email: '',
+                        telephone: '',
+                        password: '',
+                        notes: ''
+                },
+                actions: {
+                save: function () {
                 //console.log(w2ui.profileEditForm.record);
                 this.save(function (resp) {
-                    if (resp.status == 'success') {
-                        w2popup.close();
-                    }
+                if (resp.status == 'success') {
+                w2popup.close();
+                }
                 });
-            }
-        },
-        postData: {
-            mod: 'profile|edit'
+                }
+                },
+                postData: {
+                mod: 'profile|edit'
+                }
         }
-    }
 
 
 }
 
 function openProfilePopup() {
-    w2popup.open({
+        w2popup.open({
         title: '<b>user edit form</b>',
-        width: 810,
-        height: 480,
-        showMax: false,
-        body: '<div id="pop5" style="width: 100%; height: 100%;"></div>',
-        style: 'padding: 10px 10px 10px 10px',
-        onOpen: function (event) {
-            event.onComplete = function () {
+                width: 810,
+                height: 480,
+                showMax: false,
+                body: '<div id="pop5" style="width: 100%; height: 100%;"></div>',
+                style: 'padding: 10px 10px 10px 10px',
+                onOpen: function (event) {
+                event.onComplete = function () {
                 $('#w2ui-popup #pop5').w2render('profileEditForm');
-            }
-        },
-        onClose: function (event) {}
-    });
+                }
+                },
+                onClose: function (event) {}
+        });
 }
 
 $(function () {
 
-	$('').w2form(FORMS.profileEditForm);
-
-	var form = w2ui.profileEditForm;
-	form.record['recid'] = "[>recid<]";
-	form.record['firstname'] = "[>firstname<]";
-	form.record['lastname'] = "[>lastname<]";
-	form.record['email'] = "[>email<]";
-	form.record['password'] = "[>password<]";
-	form.record['telephone'] = "[>telephone<]";
-	form.record['notes'] = "[>notes<]";
+        $('').w2form(FORMS.profileEditForm);
+        var form = w2ui.profileEditForm;
+        form.record['recid'] = "[>recid<]";
+        form.record['firstname'] = "[>firstname<]";
+        form.record['lastname'] = "[>lastname<]";
+        form.record['email'] = "[>email<]";
+        form.record['password'] = "[>password<]";
+        form.record['telephone'] = "[>telephone<]";
+        form.record['notes'] = "[>notes<]";
 //	form.refresh();
 
-	openProfilePopup();
-
-
+        openProfilePopup();
 });
 
 </script>

@@ -14,7 +14,7 @@ class DBConnection {
 			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 		);
 
-		try {
+        try {
 
 			self::$db = new PDO(self::$config->dbDsn, self::$config->dbUser, self::$config->dbPass); //, $options
 			self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

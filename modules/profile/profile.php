@@ -12,8 +12,8 @@ if (!defined('MULTIDB_MODULE') || !USER_AUTHENTICATED) {
 
     ob_start();
     include('profile.js');
-    $content = ob_get_clean();   
-    
+    $content = ob_get_clean();
+
     $content = str_replace('[>recid<]', "{$row['recid']}", $content);
     $content = str_replace('[>firstname<]', "{$row['firstname']}", $content);
     $content = str_replace('[>lastname<]', "{$row['lastname']}", $content);
@@ -24,6 +24,5 @@ if (!defined('MULTIDB_MODULE') || !USER_AUTHENTICATED) {
 
     exit($content);
 }
-
 ?>
 
